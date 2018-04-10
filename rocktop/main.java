@@ -1,5 +1,5 @@
 package rocktop;
 
-public class Main {
+public class main {
 
 }
