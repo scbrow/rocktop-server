@@ -15,33 +15,7 @@ public class Client {
 
 	public static void main(String args[]) {
 		connect();
-		Scanner scan = new Scanner(System.in);
-		out.println(scan.nextLine());
-		scan.close();
-		System.out.println("sent log");
-		while(socket.isConnected()) {
-			try {
-				int line = Integer.parseInt(in.readLine());
-				switch(line) {
-				case -1:
-					System.out.println("ERROR");
-					socket.close();
-					break;
-				case 0:
-					System.out.println("ACCOUNT EXISTS");
-					socket.close();
-					break;
-				case 1:
-					System.out.println("LOGGED IN");
-					socket.close();
-					break;
-				case 2:
-					System.out.println("ACCOUNT CREATED");
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		inputs();
 	}
 
 	public static void connect() {
@@ -56,6 +30,44 @@ public class Client {
 		} catch (IOException e) {
 			System.out.println("No I/O");
 			System.exit(1);
+		}
+	}
+	public static void inputs() {
+		Scanner scan = new Scanner(System.in);
+		out.println(scan.nextLine());
+		scan.close();
+		System.out.println("Logging in...");
+		register();
+	}
+	public static void register() {
+		while(!socket.isClosed()) {
+			try {
+				int line = Integer.parseInt(in.readLine());
+				switch(line) {
+				case -1:
+					System.out.println("ERROR");
+					inputs();
+					//socket.close();
+					break;
+				case 0:
+					System.out.println("ACCOUNT EXISTS");
+					inputs();
+					//socket.close();
+					break;
+				case 1:
+					System.out.println("LOGGED IN");
+					inputs();
+					//socket.close();
+					break;
+				case 2:
+					System.out.println("ACCOUNT CREATED");
+					inputs();
+					//socket.close();
+					break;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

@@ -29,7 +29,10 @@ public class ClientWorker implements Runnable {
 		while (client.isConnected()) {
 			try {
 				line = in.readLine();
-				out.println(prot.process(line));
+				if(line != null) {
+					int proc = prot.process(line);
+					out.println(proc);
+				}
 			} catch (IOException e) {
 				System.out.println("Read failed");
 				System.exit(-1);
