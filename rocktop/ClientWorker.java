@@ -9,6 +9,7 @@ import java.net.Socket;
 public class ClientWorker implements Runnable {
 	private Socket client;
 	RockProtocol prot = new RockProtocol();
+
 	// Constructor
 	ClientWorker(Socket client) {
 		this.client = client;
@@ -23,19 +24,19 @@ public class ClientWorker implements Runnable {
 			out = new PrintWriter(client.getOutputStream(), true);
 		} catch (IOException e) {
 			System.out.println("in or out failed");
-			System.exit(-1);
 		}
 
 		while (client.isConnected()) {
 			try {
 				line = in.readLine();
-				if(line != null) {
-					int proc = prot.process(line);
-					out.println(proc);
+				if (line != null) {
+					if (line.length() - line.replaceAll(",", "").length() != 0) {
+						out.println(prot.process(line, client.getInetAddress().getHostAddress()));
+					} else {
+						out.println(prot.hash(line));
+					}
 				}
 			} catch (IOException e) {
-				System.out.println("Read failed");
-				System.exit(-1);
 			}
 		}
 	}
