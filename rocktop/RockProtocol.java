@@ -16,7 +16,6 @@ public class RockProtocol {
 			System.out.println("sql errro1");
 		}
 		String[] input = str.split(",");
-		if (input.length == 3 || input.length == 4) {
 			switch (input[0]) {
 			case "login":
 				try {
@@ -57,7 +56,6 @@ public class RockProtocol {
 				System.out.println("Invalid request");
 				break;
 			}
-		}
 		return -1; // failed
 	}
 
